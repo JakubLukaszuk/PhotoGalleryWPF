@@ -1,18 +1,19 @@
 ﻿<Window x:Class="PhotoGalleryWPF.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:PhotoGalleryWPF.ViewModel"
-        xmlns:helpers ="clr-namespace:PhotoGalleryWPF.Helpers"
-        xmlns:local="clr-namespace:PhotoGalleryWPF"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        xmlns:helpers="clr-namespace:PhotoGalleryWPF.Helpers"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        helpers:DialogCloser.DialogResult="{Binding CloseWindowFlag}">
+        WindowStartupLocation="CenterScreen"
+        md:DialogServiceViews.IsRegistered="True" 
+        helpers:DialogCloser.DialogResult="{Binding CloseWindowFlag}"
+        Title="MainWindow" Height="302" Width="480"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainWindow}">
 
-    <Window.DataContext>
-        <vm:ViewModelMain/>
-    </Window.DataContext>
+   
     <Grid>
         
         <Grid.ColumnDefinitions>
@@ -37,8 +38,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0">select folder</Button>
-            <Button Grid.Column="1">select image</Button>
+            <Button Grid.Column="0" Command="{Binding BrowseFolderCommand}">select folder</Button>
+            <Button Grid.Column="1" Command="{Binding OpenFileCommand}">select image</Button>
         </Grid>
 
     </Grid>
