@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PhotoGalleryWPF.Model
 {
-    internal class BaseModel : INotifyPropertyChanged
+    public class BaseModel : INotifyPropertyChanged
     {
         internal void RaisePropertyChanged(string prop)
         {

@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace PhotoGalleryWPF.Model
 {
-    class Image : BaseModel
+    public class Image : BaseModel
     {
         private string _Path;
 

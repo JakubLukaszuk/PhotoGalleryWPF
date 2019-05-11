@@ -127,6 +127,8 @@
     <Compile Include="Helpers\DialogCloser.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Image.cs" />
+    <Compile Include="Utils\Comparer\ImgComparer.cs" />
+    <Compile Include="Utils\Math\UnitConversion.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\ViewModelMain.cs" />

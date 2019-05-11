@@ -13,9 +13,9 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         Title="MainWindow" Height="302" Width="480"
         DataContext="{Binding Source={StaticResource Locator}, Path=MainWindow}">
 
-   
+
     <Grid>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="66*" />
             <ColumnDefinition Width="66*" />
@@ -41,6 +41,93 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             <Button Grid.Column="0" Command="{Binding BrowseFolderCommand}">select folder</Button>
             <Button Grid.Column="1" Command="{Binding OpenFileCommand}">select image</Button>
         </Grid>
+        <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Path}" ></TextBox>
+        <Button Grid.Column="3" Grid.Row="0" Command="{Binding setImages}">Open</Button>
+        <ListBox Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Images}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  SelectedItem="{Binding Image}">
+            <ListBox.ItemTemplate>
+                <DataTemplate >
+                    <Grid Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}, Path=ActualWidth}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
 
+                        <Image  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5" Source="{Binding BitmapImg}"  HorizontalAlignment="Stretch"></Image>
+
+                        <Separator Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="2"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Viewbox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2" >
+            <Image Source="{Binding  Image.BitmapImg}">
+                <Image.LayoutTransform>
+                    <RotateTransform Angle="{Binding Rotation}" />
+                </Image.LayoutTransform>
+            </Image>
+        </Viewbox>
+        <TextBox Grid.Column="0" Grid.Row="3" Text="{Binding Image.Name, Mode=OneWay, StringFormat='file name: {0}'}"/>
+        <Slider Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Maximum="360" Value="{Binding Rotation, Mode=OneWayToSource}"></Slider>
+
+        <Grid Grid.Row="4" Grid.Column="0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <RadioButton Grid.Column="0" Grid.Row="0" GroupName="sortRadioGroup" Command="{Binding SetSortOption}" CommandParameter="0" IsChecked="True">sort desc</RadioButton>
+            <RadioButton Grid.Column="1" Grid.Row="0" GroupName="sortRadioGroup" Command="{Binding SetSortOption}" CommandParameter="1">sort asc</RadioButton>
+            <Button Grid.Column="0" Grid.Row="1" Command="{Binding SortByCreationDate}">creation date</Button>
+            <Button Grid.Column="1" Grid.Row="1" Command="{Binding SortByModificationDate}">modification date</Button>
+            <Button Grid.Column="0" Grid.Row="2" Command="{Binding SortBySize}">size</Button>
+            <Button Grid.Column="1" Grid.Row="2" Command="{Binding SortByName}">name</Button>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Text="{Binding Image.Path, Mode=OneWay, StringFormat='path: {0}'}"></TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" >
+                <Run Text="resolution: "/>
+                <Run Text="{Binding Image.BitmapImg.Width, Mode=OneWay, StringFormat='{}{0} x'}" />
+                <Run Text="{Binding Image.BitmapImg.Height, Mode=OneWay}"/>
+            </TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" >
+                <Run Text="format: "/>
+                <Run Text="{Binding Image.BitmapImg.Format, Mode=OneWay}"/>
+            </TextBlock>
+            <TextBlock Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="1" Text="{Binding Image.Size, StringFormat='size(mb): {0}'}">
+            </TextBlock>
+            <TextBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding Image.CreationDate, StringFormat='creation date: {0}'}" ></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding Image.LastModificationDate, StringFormat='last modify date: {0}'}" ></TextBox>
+            <TextBlock Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="1">
+                <Run Text="DPI: "/>
+                <Run Text="{Binding Image.BitmapImg.DpiX, Mode=OneWay, StringFormat='{}{0} x'}" />
+                <Run Text="{Binding Image.BitmapImg.DpiY, Mode=OneWay}"/>
+            </TextBlock>
+        </Grid>
     </Grid>
 </Window>
