@@ -16,10 +16,7 @@ namespace PhotoGalleryWPF.Dialog.FolderBrowser
         private readonly FolderBrowserDialogSettings settings;
         private readonly VistaFolderBrowserDialog folderBrowserDialog;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FolderBrowserDialogWrapper"/> class.
-        /// </summary>
-        /// <param name="settings">The settings for the folder browser dialog.</param>
+
         public BrowserDialog(FolderBrowserDialogSettings settings)
         {
             this.settings = settings ?? throw new ArgumentNullException(nameof(settings));
@@ -32,15 +29,6 @@ namespace PhotoGalleryWPF.Dialog.FolderBrowser
             };
         }
 
-        /// <summary>
-        /// Opens a folder browser dialog with specified owner.
-        /// </summary>
-        /// <param name="owner">
-        /// Handle to the window that owns the dialog.
-        /// </param>
-        /// <returns>
-        /// true if user clicks the OK or YES button; otherwise false.
-        /// </returns>
         public bool? ShowDialog(Window owner)
         {
             if (owner == null) throw new ArgumentNullException(nameof(owner));

@@ -15,6 +15,7 @@ using IOPath = System.IO.Path;
 using System.Collections.ObjectModel;
 using PhotoGalleryWPF.Utils.Math;
 using PhotoGalleryWPF.Utils.Comparer;
+using System.Windows;
 
 namespace PhotoGalleryWPF.ViewModel
 {
@@ -76,19 +77,20 @@ namespace PhotoGalleryWPF.ViewModel
             }
             catch (System.IO.DirectoryNotFoundException)
             {
-
+                ShowMessageWithoutGetingResult("The directory was probably removed.", "Directory not found", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (System.IO.FileNotFoundException)
             {
-
+                ShowMessageWithoutGetingResult("The file was probably removed from selected directory.", "File not found", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
             catch (System.IO.FileFormatException)
             {
-
+                ShowMessageWithoutGetingResult("Please select file with supported format.", "Wrong file format", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception e)
             {
-
+                ShowMessageWithoutGetingResult("Unknown Error", e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -114,16 +116,16 @@ namespace PhotoGalleryWPF.ViewModel
                         }
                         catch (System.IO.FileNotFoundException)
                         {
-
+                            ShowMessageWithoutGetingResult("Please select another file.", "File not found", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
 
                         catch (System.IO.FileFormatException)
                         {
- 
+                            ShowMessageWithoutGetingResult("Please select file with supported format.", "Wrong file format", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         catch (Exception e)
                         {
-
+                            ShowMessageWithoutGetingResult("Unknown Error", e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         break;
                     }
@@ -173,6 +175,16 @@ namespace PhotoGalleryWPF.ViewModel
             {
                 Path = settings.FileName;
             }
+        }
+
+        private void ShowMessageWithoutGetingResult(String text, String caption, MessageBoxButton button, MessageBoxImage image)
+        {
+             dialogService.ShowMessageBox(
+                this,
+                text,
+                caption,
+                button,
+                image);
         }
 
         void sortBySizeExecutable(object parametr)
@@ -226,6 +238,8 @@ namespace PhotoGalleryWPF.ViewModel
             SortFlag = Convert.ToBoolean(Int32.Parse(parametr.ToString()));
         }
 
+
+
         public string Path
         {
             get => path;
@@ -272,5 +286,6 @@ namespace PhotoGalleryWPF.ViewModel
                 }
             }
         }
+
     }
 }

@@ -112,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Style\MainStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -123,6 +127,8 @@
     <Compile Include="Data\DataProvider.cs" />
     <Compile Include="Dialog\FolderBrowser\DialogFactory.cs" />
     <Compile Include="Dialog\FolderBrowser\FolderBrowserDialog.cs" />
+    <Compile Include="Dialog\MessageBox\DialogFactory.cs" />
+    <Compile Include="Dialog\MessageBox\MessageBoxDialog.cs" />
     <Compile Include="Helpers\Command\RelayCommand.cs" />
     <Compile Include="Helpers\DialogCloser.cs" />
     <Compile Include="Model\BaseModel.cs" />

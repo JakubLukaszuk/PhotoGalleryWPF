@@ -10,10 +10,15 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         WindowStartupLocation="CenterScreen"
         md:DialogServiceViews.IsRegistered="True" 
         helpers:DialogCloser.DialogResult="{Binding CloseWindowFlag}"
-        Title="MainWindow" Height="302" Width="480"
+        Title="Photo Gallery" Height="550" Width="900"
         DataContext="{Binding Source={StaticResource Locator}, Path=MainWindow}">
-
-
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style\MainStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -38,11 +43,11 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Command="{Binding BrowseFolderCommand}">select folder</Button>
-            <Button Grid.Column="1" Command="{Binding OpenFileCommand}">select image</Button>
+            <Button Grid.Column="0" Command="{Binding BrowseFolderCommand}"  Template="{StaticResource AlternativeButton}">select folder</Button>
+            <Button Grid.Column="1" Command="{Binding OpenFileCommand}" Template="{StaticResource AlternativeButton}">select image</Button>
         </Grid>
-        <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Path}" ></TextBox>
-        <Button Grid.Column="3" Grid.Row="0" Command="{Binding setImages}">Open</Button>
+        <TextBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Path}"  ></TextBox>
+        <Button Grid.Column="3" Grid.Row="0" Command="{Binding setImages}" Template="{StaticResource AlternativeButton}">Open</Button>
         <ListBox Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Images}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  SelectedItem="{Binding Image}">
             <ListBox.ItemTemplate>
                 <DataTemplate >
@@ -121,8 +126,8 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             </TextBlock>
             <TextBlock Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="1" Text="{Binding Image.Size, StringFormat='size(mb): {0}'}">
             </TextBlock>
-            <TextBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding Image.CreationDate, StringFormat='creation date: {0}'}" ></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding Image.LastModificationDate, StringFormat='last modify date: {0}'}" ></TextBox>
+            <TextBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding Image.CreationDate, StringFormat='creation date: {0}'}" Style="{StaticResource textBox}" IsReadOnly = "True"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" Text="{Binding Image.LastModificationDate, StringFormat='last modify date: {0}'}" Style="{StaticResource textBox}" IsReadOnly = "True" ></TextBox>
             <TextBlock Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="1">
                 <Run Text="DPI: "/>
                 <Run Text="{Binding Image.BitmapImg.DpiX, Mode=OneWay, StringFormat='{}{0} x'}" />
